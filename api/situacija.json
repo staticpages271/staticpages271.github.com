@@ -1,0 +1,43 @@
+{
+    "karantinas": [
+        {
+            "nuo": "2020-10-26T00:00:00.000+02:00",
+            "iki": "2020-11-09T24:00:00.000+02:00",
+            "teritorijos": [
+                "Elektrėnų",
+                "Joniškio rajono",
+                "Jurbarko rajono",
+                "Kelmės rajono",
+                "Klaipėdos rajono",
+                "Kretingos rajono",
+                "Marijampolės",
+                "Pasvalio rajono",
+                "Plungės rajono",
+                "Skuodo rajono",
+                "Šiaulių rajono",
+                "Švenčionių rajono"
+            ]
+        },
+        {
+            "nuo": "2020-10-28T00:00:00.000+02:00",
+            "iki": "2020-11-11T24:00:00.000+02:00",
+            "teritorijos": [
+                "Kauno miesto",
+                "Klaipėdos miesto",
+                "Šilalės rajono",
+                "Širvintų rajono",
+                "Telšių rajono",
+                "Trakų rajono",
+                "Vilniaus miesto",
+                "Vilniaus rajono"
+            ]
+        },
+        {
+            "nuo": "2020-10-09T00:00:00.000+02:00",
+            "iki": "2020-11-06T24:00:00.000+02:00",
+            "teritorijos": [
+                "Raseinių rajono"
+            ]
+        }
+    ]
+}

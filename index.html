@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="lt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+    <title>Ar dar karantinas?</title>
+    
+    <meta name="title" content="Ar dar karantinas?">
+    <meta name="description" content="Puslapis atsakantis į svarbiausią klausimą - ar dar karantinas">
+    
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ardarkarantinas.lt/">
+    <meta property="og:title" content="Ar dar karantinas?">
+    <meta property="og:description" content="Puslapis atsakantis į svarbiausią klausimą - ar dar karantinas">
+    <meta property="og:image" content="https://ardarkarantinas.lt/img/de39f0be-7455-47ec-8784-6c104976c7f3.png">
+    
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://metatags.io/">
+    <meta property="twitter:title" content="Ar dar karantinas?">
+    <meta property="twitter:description" content="Puslapis atsakantis į svarbiausią klausimą - ar dar karantinas">
+    <meta property="twitter:image" content="https://ardarkarantinas.lt/img/de39f0be-7455-47ec-8784-6c104976c7f3.png">
+    
+    <style type="text/css" media="screen">
+        * { box-sizing: border-box; }
+        body {margin: 0; padding: 0; font-family: Verdana,Geneva,sans-serif;}
+        a { text-decoration: none; }
+        #container { position: absolute; display: table; width: 100%; height: 99%; margin: 0 auto; }
+        #main { display: table-row; width: 100%; height: 85%; }
+        #bottom { display: table-row; width: 100%; height: 15%; max-height: 90px; }
+        #content { position: relative; display: table-cell; vertical-align: middle; text-align: center; padding: 10px 80px; }
+        #footer { position: relative; display: table-cell; vertical-align: middle; text-align: center; }
+        #summary { padding: 0 25%; }
+        .big { font-size: 36pt; }
+        @media only screen and (min-device-width: 320px) and (max-device-width: 424px) {
+            #content { padding: 10px 10px; }
+            #summary { padding: 0 10px; }
+        }
+        @media only screen and (min-device-width: 425px) and (max-device-width: 768px) {
+            #content { padding: 10px 30px; }
+            #summary { padding: 0 30px; }
+        }
+    </style>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LBN8WD46JC"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-LBN8WD46JC');
+    </script>
+</head>
+<body bgcolor="#ffffff">
+    <div id="container">
+        <div id="main">
+            <div id="content">
+                <img id="pic" width="375" height="282">
+                <br>
+                <span class="big" id="answer"></span>
+                <br>
+                <div id="summary">
+                    <b>Karantinas galioja šiose teritorijose</b>: <span id="locations"> </span>
+                </div>
+            </div>		
+        </div>
+        <div id="bottom">
+            <div id="footer">
+                <br><br>
+                <a href="api.html">API</a>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        var answerEl = document.getElementById("answer");
+        var locationsEl = document.getElementById("locations");
+        var request = new XMLHttpRequest();
+        var yes = ["TAIP", "TIKRAI TAIP", "DEJA, TAIP", "OGI TAIP", "KOL KAS TAIP", "TAIP PASKELBTA", "O TAIP", "NEABEJOTINAI TAIP" ];
+        
+        request.open('GET', '/api/situacija.json', true);
+        request.onload = function() {
+            if (request.status >= 200 && request.status < 400) {
+                var locations = [];
+                var now = new Date();
+                var data = JSON.parse(request.responseText);                               
+                
+                document.getElementById("pic").setAttribute("src", "https://avatars.dicebear.com/api/male/"+now+".svg");
+                
+                data.karantinas.forEach(function (quarantine, _) {
+                    if (Date.parse(quarantine.nuo) < now && Date.parse(quarantine.iki) > now) {
+                        locations = locations.concat(quarantine.teritorijos);
+                    }
+                });
+                
+                if(locations.length > 0) {
+                    answerEl.innerHTML = yes[Math.floor(Math.random() * yes.length)];;
+                    locationsEl.innerHTML = locations.join(", ");
+                } else {
+                    answerEl.innerHTML = "NE";
+                    document.getElementById("summary").innerHTML = "";
+                }
+            } else {
+                answerEl.innerHTML = "NEŽINIA";
+            }
+        };
+        request.send();
+    </script>
+</body>
+</html>
